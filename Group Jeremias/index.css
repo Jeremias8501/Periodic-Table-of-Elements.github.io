@@ -1,0 +1,426 @@
+@font-face{
+    font-family:tetris;
+    src: url(tetris.ttf);
+}
+.brick{
+    position: fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:20vh;
+    z-index:1;
+    background-image: url("R\ \(1\).jpg");
+    background-repeat: repeat-x;
+    background-attachment: fixed;
+    border:3px ridge black;
+    display:flex;
+    justify-content: center;
+    overflow-y: scroll;
+}
+body{
+    /* background: rgb(241,237,239);
+background: radial-gradient(circle, rgba(241,237,239,1) 0%, rgba(66,58,58,1) 100%); */
+    background-image: url("R\ \(1\).jpg");
+    background-attachment: scroll;
+    scroll-behavior: smooth;
+}
+@keyframes animate{
+    0%   {color: rgba(199,0,0,1);}
+    25%  {color: yellow;}
+    50%  {color: rgba(22,223,218,1);}
+    100% {color: rgba(81,175,61,1);}
+}
+h1{
+    text-align:center;
+    font-family:'tetris';
+    font-size:2vw;
+    z-index: 2;
+    text-shadow: 3px 3px 5px gray;
+    animation-name: animate;
+    animation-duration: 10s;
+    animation-iteration-count:infinite;
+}
+h1:hover{
+    transform: scale(1.5);
+}
+.table {
+    position:fixed;
+    top: 3vw;
+    left:1vw;
+    z-index: 2;
+    box-sizing:border-box;
+    margin-bottom:12em;
+    padding:1em;
+    width: 96vmax;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
+    gap:1px 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . ."
+        ". . . . . . . . . . . . . . . . . .";
+}
+.none {
+    grid-column-start: 2;
+    grid-column-end:18;
+}
+.nonee{
+    grid-column-start: 3;
+    grid-column-end: 13;
+}
+.bottom-none{
+    grid-column-start: 1;
+    grid-column-end: 19;
+}
+.left-none{
+    grid-row-start: 9;
+    grid-row-end: 11;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+.right-none {
+    grid-row-start: 9;
+    grid-row-end: 11;
+    grid-column-start: 18;
+    grid-column-end: 18;
+}
+.container {
+    margin:0;
+    padding:0;
+    width: 5vw;
+    max-width:4.4vmax;
+    height: 5vh;
+    text-align: center;
+    border-width: 0.5vw;
+    border-style: solid;
+    border-color: white #9d9d9d  #585858 #9d9d9d;
+    font-family:'Tetris';
+    color:rgb(58, 58, 58);
+    z-index:2;
+    transition: 0.5s;
+}
+  
+.container:hover{
+    height: 5vh;
+    transform:scale(3);
+    box-shadow: 3px 3px 3px white;
+    border-radius: 3px;
+    font-size:8px;
+    z-index: 3;
+    border:3px outset gray;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    opacity:1;
+    text-shadow: 3px 3px 8px white;
+    overflow: hidden;
+}
+.container:hover .number{
+    visibility:visible;
+    margin-top:-2px;
+}
+.container:hover .symbol{
+    position:relative;
+    font-size:12px;
+    margin:1px 0;
+}
+.container:hover .mass{
+    position:relative;
+    visibility: visible;
+    margin:-10px 0;
+}
+.container:hover .name{
+    margin-top:-5px;
+    position:relative;
+    visibility: visible;
+}
+.number{
+position:absolute;
+top:5%;
+left:10%;
+visibility: hidden;
+}
+.symbol{
+margin:0;
+font-size:2em;
+position:relative;
+opacity:0.9;
+}
+.mass{
+visibility:hidden;
+}
+.name{
+visibility:hidden;
+}
+.alkali {
+    background: rgb(199,0,0);
+background: linear-gradient(340deg, rgba(199,0,0,1) 56%, rgba(244,244,244,1) 100%);
+}
+.alkaline{
+    background: rgb(209,147,0);
+background: linear-gradient(340deg, rgba(209,147,0,1) 56%, rgba(244,244,244,1) 100%);
+}
+.transition{
+    background: rgb(209,207,0);
+background: linear-gradient(340deg, rgba(209,207,0,1) 56%, rgba(244,244,244,1) 100%);
+}
+.basic{
+    background: rgb(28,134,20);
+background: linear-gradient(340deg, rgba(28,134,20,1) 56%, rgba(235,224,67,1) 100%);
+}
+.semimetal{
+    background: rgb(41,216,152);
+background: linear-gradient(340deg, rgba(41,216,152,1) 56%, rgba(186,240,220,1) 100%);
+}
+.nonmetal{
+    background: rgb(22,223,218);
+background: linear-gradient(340deg, rgba(22,223,218,1) 56%, rgba(186,240,220,1) 100%);
+}
+.hallogen{
+    background: rgb(147,97,223);
+background: linear-gradient(346deg, rgba(147,97,223,1) 56%, rgba(234,235,234,1) 100%);
+}
+.gas{
+    background: rgb(95,67,138);
+background: linear-gradient(340deg, rgba(95,67,138,1) 56%, rgba(234,235,234,1) 100%);
+}
+.lanthanide{
+    background: rgb(191,231,75);
+background: linear-gradient(340deg, rgba(191,231,75,1) 56%, rgba(237,246,200,1) 100%);
+}
+.actinide{
+    background: rgb(81,175,61);
+background: linear-gradient(340deg, rgba(81,175,61,1) 56%, rgba(237,246,200,1) 100%);
+}
+a{
+    color:rgb(34, 26, 26);
+    text-decoration: none;
+}
+a:visited{
+    color:rgb(34, 26, 26);
+    text-decoration: none;
+}
+a:hover{
+    color:white;
+}
+.contain {
+    padding:5px;
+    background: rgb(221,202,47);
+    background: linear-gradient(0deg, rgba(221,202,47,1) 2%, rgba(4,250,235,1) 100%);
+    width:6em;
+    height:7em;
+    position: fixed;
+    top:4vw;
+    left:15vw;
+    text-align: center;
+    border: 2px outset black;
+    border-radius:10px;
+    box-shadow: 10px 10px 15px gray;
+    z-index: 1;
+    overflow:hidden;
+    line-height: 0.4;
+}
+.number-container{
+    position: relative;
+    text-align: left;
+}
+.symbol-container{
+    position:relative;
+    font-size: 25px;
+    font-family: 'Tetris';
+}
+.letter-container{
+    position:relative;
+}
+.mass-container, .letter-container, .number-container {
+    font-size:10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:700;
+}
+/*Moving Tetris*/
+
+@keyframes move {
+  from {
+    position: absolute;
+    top:-10vw;
+    left:2vw;
+  }
+  to {
+    position:absolute;
+    top:40vw;
+    left:2vw;
+  }
+}
+@keyframes move-two {
+    from{
+        position: absolute;
+        top: -10vw;
+        left:60vw;
+    }
+    to{
+        position: absolute;
+         top: 40vw;
+         left:60vw;
+    }
+}
+@keyframes move-three {
+    from{
+        position: absolute;
+        top: 0vw;
+        left:40vw;
+    }
+    to{
+        position: absolute;
+         top: 40vw;
+         left:40vw;
+    }
+}
+@keyframes move-four {
+    from{
+        position: absolute;
+        top: -10vw;
+        left:65vw;
+    }
+    to{
+        position: absolute;
+         top: 48vw;
+         left:65vw;
+    }
+}
+@keyframes move-five {
+    from{
+        position: absolute;
+        top: -10vw;
+        left:75vw;
+    }
+    to{
+        position: absolute;
+         top: 48vw;
+         left:75vw;
+    }
+}
+
+/* .move-four {
+    opacity:0.9;
+    animation-name: move-four;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-delay: 3s;
+    z-index:1;
+}
+.move-five {
+    opacity:0.9;
+    animation-name: move-five;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+    z-index:1;
+} */
+
+.score{
+    margin:10px;
+    position: relative;
+    width:10em;
+    height:5em;
+    display: inline-block;
+    background-color: black;
+    border: 3px inset gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: larger;
+    font-weight: 900;
+    color:white;
+}
+.level {
+    margin:10px;
+    position:relative;
+    width:10em;
+    height:5em;
+    display: inline-block;
+    background-color: black;
+    border: 3px inset gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: larger;
+    font-weight: 900;
+    color:white;
+}
+.points {
+    font-size: 1em;
+    text-align: center;
+}
+.two {
+    font-size:1em;
+    text-align: center;
+}
+.next-brick{
+    margin:10px;
+    position:relative;
+    width:17em;
+    height:6em;
+    background-color: black;
+    display: inline-block;
+    border: 3px inset gray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: larger;
+    font-weight: 900;
+    color:white;
+}
+
+/* tetris shape */
+.tetris-block-none {
+    width: 200px;
+    max-width:4.4vmax;
+    height: 250px;
+    max-height:7vmin;
+    height:9vmin;
+    overflow: hidden;
+    text-align: center;
+    font-family:'Tetris';
+    color:white;
+    z-index:-2;
+}   
+.z-shape{
+    display:grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    gap:1px;
+    justify-content: center;
+    animation-name: move;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    z-index:-3;
+}
+.z-shape-no-animation{
+    display:grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    justify-content: center;
+}
+.i-shape{
+    display:grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto;
+    justify-content: center;
+    animation-name: move-two;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+    z-index:-3;
+}
+.l-shape{
+    display:grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    justify-content: center;
+    animation-name: move-three;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.5s;
+    z-index:-3;
+}
